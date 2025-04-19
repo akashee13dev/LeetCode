@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class GreatestCommonDivisor  {
 
     /**
-     * @implNote  Will see next , since time is 2 AM
+     * @implNote
      * @param str1
      * @param str2
      * @return
@@ -15,41 +15,25 @@ public class GreatestCommonDivisor  {
 
     public String gcdOfStrings(String str1, String str2) {
 
-        if(str1.isEmpty()){
+        if(str1.isEmpty() || str2.isEmpty()){
             return "";
         }
-        if(!isCompleteSubstring(str1,str2)){
+
+        int len = str1.length();
+        int lenTwo = str2.length();
+
+        if(!(str1+str2).equals(str2+str1)){
             return "";
         }
-        int twoLen = str2.length();
-        String str1Copy = str1;
+        return str1.substring(0,gcd(len,lenTwo));
 
-        String longTemp = "";
-
-        for (int i = 0 ; i<twoLen ; i++){
-            if(longTemp.equals(str1Copy)){
-                return longTemp;
-            }
-            String sub = str2.substring(0,i+1);
-            if(str1Copy.replaceAll(sub,"").isEmpty()){
-                longTemp = longTemp.isEmpty() ? sub : str1.length() > str2.length() ? sub :  sub.startsWith(longTemp) && sub.endsWith(longTemp) ? longTemp : sub;
-            }
-        }
-        return longTemp;
     }
 
-    public boolean isCompleteSubstring(String str1, String str2) {
-        Map<Character, Long> str1Frequency = str1.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        Map<Character, Long> str2Frequency = str2.chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        return str2Frequency.entrySet().stream()
-                .allMatch(entry -> str1Frequency.getOrDefault(entry.getKey(), 0L) >= entry.getValue())
-                && str1Frequency.keySet().stream().allMatch(str2Frequency::containsKey);
+    public int gcd(int num1, int num2) {
+        if(num2 == 0){
+            return num1;
+        }
+        return gcd(num2 , num1 % num2);
     }
 
 }

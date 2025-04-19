@@ -19,4 +19,10 @@ public class ClimbingStairsTest {
         Assertions.assertEquals(3,obj.climbStairs(3));
     }
 
+    @Test
+    @DisplayName("Test Case 3: Input: n = 44")
+    void example3(){
+        Assertions.assertEquals(1134903170,obj.climbStairs(44));
+    }
+
 }
