@@ -1,7 +1,5 @@
 package medium.LC1007;
 
-import java.util.Arrays;
-
 public class MinimumDominoRotationsForEqualRow {
 
         public int minDominoRotations(int[] tops, int[] bottoms) {
