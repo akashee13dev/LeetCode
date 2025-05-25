@@ -22,27 +22,41 @@ public class TwoSum {
 //        return output;
 
         //2 pointer
-        int[] output = new int[2];
-        HashMap<Integer, List<Integer>> valueVsIndices = new HashMap<>();
-        IntStream.range(0, nums.length).forEach(index -> valueVsIndices.computeIfAbsent(nums[index],  k -> new ArrayList<>()).add(index));
-        Arrays.sort(nums);
-        int left = 0;
-        int right = nums.length -1 ;
-        while (right >= left){
-            int sum = nums[left] + nums[right];
-            if(sum == target){
-                output[0] = valueVsIndices.get(nums[left]).remove(0);;
-                output[1] = valueVsIndices.get(nums[right]).remove(0);;
-                return output;
+//        int[] output = new int[2];
+//        HashMap<Integer, List<Integer>> valueVsIndices = new HashMap<>();
+//        IntStream.range(0, nums.length).forEach(index -> valueVsIndices.computeIfAbsent(nums[index],  k -> new ArrayList<>()).add(index));
+//        Arrays.sort(nums);
+//        int left = 0;
+//        int right = nums.length -1 ;
+//        while (right >= left){
+//            int sum = nums[left] + nums[right];
+//            if(sum == target){
+//                output[0] = valueVsIndices.get(nums[left]).remove(0);;
+//                output[1] = valueVsIndices.get(nums[right]).remove(0);;
+//                return output;
+//            }
+//            else if(sum > target){
+//                right--;
+//            }
+//            else {
+//                left++;
+//            }
+//        }
+//        return output;
+        //HashMap
+        int[] result = new int[2];
+        HashMap<Integer,Integer> remainVsIndex = new HashMap<>();
+        int index = 0;
+        for (int num : nums){
+            if(remainVsIndex.containsKey(num)){
+                result[0] = remainVsIndex.get(num);
+                result[1] = index;
+                return result;
             }
-            else if(sum > target){
-                right--;
-            }
-            else {
-                left++;
-            }
+            remainVsIndex.put(target - num , index);
+            index++;
         }
-        return output;
+        return result;
     }
 
 }
