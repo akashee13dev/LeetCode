@@ -16,21 +16,41 @@ public class ContainerWithMostWater {
 //
 //        return maxArea;
 
-        int left = 0;
-        int right = height.length - 1;
-        int maxArea = 0;
-
-        while (left < right) {
-            int area = Math.min(height[left], height[right]) * (right - left);
-            maxArea = Math.max(maxArea, area);
-            if (height[left] < height[right]) {
-                left++;
-            } else {
-                right--;
+        int len = height.length;
+        if(len == 2){
+            return height[0] * height[1];
+        }
+        int start = 0;
+        int end = len-1;
+        int max = 0;
+        while(end > start){
+            max = Math.max(max, (Math.min(height[start] , height[end]) * (end-start)));
+            if(height[end] > height[start]){
+                start++;
+            }
+            else {
+                end--;
             }
         }
+        return max;
 
-        return maxArea;
+
+
+//        int left = 0;
+//        int right = height.length - 1;
+//        int maxArea = 0;
+//
+//        while (left < right) {
+//            int area = Math.min(height[left], height[right]) * (right - left);
+//            maxArea = Math.max(maxArea, area);
+//            if (height[left] < height[right]) {
+//                left++;
+//            } else {
+//                right--;
+//            }
+//        }
+//
+//        return maxArea;
 
     }
 
