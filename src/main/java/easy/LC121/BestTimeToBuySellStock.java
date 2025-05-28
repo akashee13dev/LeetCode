@@ -4,17 +4,30 @@ public class BestTimeToBuySellStock {
 
     public int maxProfit(int[] prices) {
 
-        int buyingPrice = prices[0];
-        int profit = 0;
-        int sellingPrice = prices[0];
 
-        for (int day =1 ; day < prices.length ; day++ ){
-            int dayProfit = prices[day] - buyingPrice;
-            profit = Math.max(profit , dayProfit);
-            buyingPrice = Math.min(prices[day] , buyingPrice);
+        int max = 0;
+        int len = prices.length;
+        if(len == 0){
+            return max;
         }
+        int buy = prices[0];
+        for(int day = 1 ; day < len ; day++){
+            buy = Math.min(buy , prices[day]);
+            max = Math.max(max, prices[day] - buy );
+        }
+        return max;
 
-        return profit;
+
+//        int buyingPrice = prices[0];
+//        int profit = 0;
+//
+//        for (int day =1 ; day < prices.length ; day++ ){
+//            int dayProfit = prices[day] - buyingPrice;
+//            profit = Math.max(profit , dayProfit);
+//            buyingPrice = Math.min(prices[day] , buyingPrice);
+//        }
+//
+//        return profit;
 //
 //        int buyPrice = prices[0];
 //        int buyInd = 0;
