@@ -3,6 +3,7 @@ package easy.LC20;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class ValidParentheses {
@@ -11,16 +12,36 @@ public class ValidParentheses {
     public boolean isValid(String s) {
 
         int len = s.length();
+        HashMap<Character , Character> reversParantheses = new HashMap<>();
+        reversParantheses.put('}','{');
+        reversParantheses.put(']','[');
+        reversParantheses.put(')','(');
+        Stack<Character> stack = new Stack<>();
         for (int i=0 ; i < len ; i++){
-            if(s.isEmpty() || s.isBlank()){
-                return true;
+            char ch = s.charAt(i);
+            if(ch == '{' || ch == '[' || ch == '(' ){
+                stack.push(ch);
             }
-            s = s.replaceAll(Pattern.quote("()"),"");
-            s = s.replaceAll(Pattern.quote("[]"),"");
-            s = s.replaceAll(Pattern.quote("{}"),"");
+            else {
+                if(stack.isEmpty() || !stack.pop().equals(reversParantheses.get(ch))){
+                    return false;
+                }
+            }
         }
+        return stack.isEmpty() ;
 
-       return s.isEmpty() || s.isBlank() ;
+
+//        int len = s.length();
+//        for (int i=0 ; i < len ; i++){
+//            if(s.isEmpty() || s.isBlank()){
+//                return true;
+//            }
+//            s = s.replaceAll(Pattern.quote("()"),"");
+//            s = s.replaceAll(Pattern.quote("[]"),"");
+//            s = s.replaceAll(Pattern.quote("{}"),"");
+//        }
+//
+//       return s.isEmpty() || s.isBlank() ;
 
 //        HashMap<String,String> brackets = new HashMap<>();
 //        brackets.put("{","}");
